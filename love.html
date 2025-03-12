@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be Mine? ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+        body {
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+            background: url('https://png.pngtree.com/thumb_back/fh260/background/20210912/pngtree-aesthetic-background-pink-pastel-image_866344.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 4rem;
+            color: #ff4d79;
+            margin-top: 50px;
+        }
+        .container {
+            position: relative;
+            margin-top: 30px;
+        }
+        button {
+            font-size: 1.8rem;
+            padding: 15px 30px;
+            margin: 10px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .yes {
+            background-color: #ff66a3;
+            color: white;
+        }
+        .yes:hover {
+            transform: scale(1.2);
+        }
+        .no {
+            background-color: #ff99c2;
+            color: black;
+            position: absolute;
+        }
+        #yesMessage, #loveMessage {
+            display: none;
+            font-size: 3rem;
+            color: red;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid;
+            width: 0;
+            margin: 20px auto;
+        }
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink {
+            50% { border-color: transparent }
+        }
+        .love-meter {
+            width: 300px;
+            height: 30px;
+            background-color: #ddd;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 20px auto;
+        }
+        .love-meter-fill {
+            height: 100%;
+            width: 0;
+            background-color: #ff4d79;
+            transition: width 0.5s;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+    </style>
+</head>
+<body>
+    <h1 id="mainTitle" class="heartbeat">Will you be mine? ❤️</h1>
+    <div class="container">
+        <button class="yes" onclick="yesClicked()" onmouseover="fillLoveMeter()">Yes</button>
+        <button class="no" id="noButton" onmouseover="moveNoButton()">No</button>
+    </div>
+    <div class="love-meter">
+        <div class="love-meter-fill" id="loveMeter"></div>
+    </div>
+    <div id="yesMessage"></div>
+    <div id="loveMessage">I Love You! ❤️</div>
+    <audio id="loveSong" src="https://www.myinstants.com/media/sounds/happy-happy-happy.mp3" preload="auto"></audio>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0"></script>
+    <script>
+        function yesClicked() {
+            let message = document.getElementById('yesMessage');
+            message.style.display = 'block';
+            message.style.animation = 'typing 3s steps(30, end), blink 0.75s step-end infinite';
+            message.innerHTML = '';
+            let text = 'Yay! 💖💖💖';
+            let i = 0;
+            function typeEffect() {
+                if (i < text.length) {
+                    message.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typeEffect, 100);
+                }
+            }
+            typeEffect();
+            confettiExplosion();
+            playLoveSong();
+            setTimeout(showFinalPopup, 4000);
+            setTimeout(showLoveMessage, 5000);
+        }
+        function showFinalPopup() {
+            alert("You're MINE Daddy!!!");
+        }
+        function showLoveMessage() {
+            let loveMessage = document.getElementById('loveMessage');
+            loveMessage.style.display = 'block';
+            loveMessage.style.animation = 'typing 3s steps(30, end), blink 0.75s step-end infinite';
+        }
+        function moveNoButton() {
+            let noButton = document.getElementById('noButton');
+            noButton.style.position = 'absolute';
+            noButton.style.left = Math.random() * 80 + 'vw';
+            noButton.style.top = Math.random() * 80 + 'vh';
+            noButton.style.animation = 'shake 0.3s';
+            setTimeout(() => {
+                alert("You're not allowed to come near no :)");
+            }, 200);
+        }
+        function fillLoveMeter() {
+            document.getElementById('loveMeter').style.width = '100%';
+        }
+        function confettiExplosion() {
+            confetti({
+                particleCount: 200,
+                spread: 100,
+                origin: { y: 0.6 }
+            });
+        }
+        function playLoveSong() {
+            let audio = document.getElementById('loveSong');
+            audio.play();
+        }
+    </script>
+</body>
+</html>
